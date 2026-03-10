@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect, useRef } from 'react';
-import { MessageSquare, X, Send, PlayCircle, Headphones, ExternalLink, Play, Pause, ZoomIn, Sparkles } from 'lucide-react';
+import { MessageSquare, X, Send, PlayCircle, Headphones, ExternalLink, Play, Pause, ZoomIn, Sparkles, Menu } from 'lucide-react';
 import { motion, useInView, animate } from 'framer-motion';
 
 // --- 高级平滑磁吸悬停组件 (Magnetic Hover) ---
@@ -120,13 +120,6 @@ const JIAN_YI_MIAN_POSTERS = [
   { id: 3, title: "年终热点人物", tag: "年度收官", desc: "5期人物纪录片及1期央视频合作主题片，突破刘国梁、真香哥、王暖暖等话题人物。「王暖暖对谈小谢」单期曝光破亿。", link: "https://www.douyin.com/video/7452142541383683387", posterFallback: "王暖暖海报", img: "/images/王暖暖.jpg" }
 ];
 
-const BUBBLE_KEYWORDS = [
-  { text: "每日经济新闻", offset: "-translate-y-2", margin: "ml-2" }, { text: "凤凰网财经", offset: "translate-y-4", margin: "ml-8" }, { text: "财经杂志", offset: "-translate-y-4", margin: "mr-4" },
-  { text: "李玲", offset: "translate-y-2", margin: "ml-4" }, { text: "陆震", offset: "-translate-y-1", margin: "mr-6" }, { text: "倪鹏飞", offset: "translate-y-5", margin: "ml-2" },
-  { text: "贾康", offset: "-translate-y-3", margin: "mr-8" }, { text: "丁克养老", offset: "translate-y-3", margin: "ml-6" }, { text: "新能源", offset: "-translate-y-5", margin: "mr-2" },
-  { text: "医疗保险", offset: "translate-y-1", margin: "ml-4" }
-];
-
 const AI_KNOWLEDGE = [
   {
     keys: ["商业", "售卖", "客户", "非标", "买单", "变现", "赚钱", "营收", "赞助"],
@@ -170,7 +163,7 @@ const AI_KNOWLEDGE = [
   },
   {
     keys: ["ai", "赋能", "大模型", "人工智能", "工具", "gpt", "效率", "降本增效"],
-    text: "【AI 赋能】在实际业务中，我主要利用大模型（如 GPT/Gemini）进行复杂信息处理，比如梳理海量娱乐专栏的选题库、提炼高频话题等，大幅提升了案头效率。\n\n但更重要的一点是，我正在用 AI 拓展我作为内容运营的能力边界。比如，您现在看到的这个极具设计感和 3D 动效的在线 Portfolio 网站，其实就是我亲手通过与 AI 结对编程写代码做出来的。它证明了即使我不是前端开发，只要具备极强的产品审美和逻辑拆解能力，AI 就能成为我最强大的外脑和执行手。"
+    text: "【AI 赋能】在实际业务中，我主要利用大模型（如 GPT/Gemini）进行复杂信息处理，比如梳理海量娱乐专栏的选题库、提炼高频话题等，大幅提升了案头效率。\n\n但更重要的一点是，我正在用 AI 拓展我作为内容运营的能力边界。比如，您现在看到的这个极具设计感和 3D 动效的在线 Portfolio 网站，其实就是我亲手通过与 AI 结结编程写代码做出来的。它证明了即使我不是前端开发，只要具备极强的产品审美和逻辑拆解能力，AI 就能成为我最强大的外脑和执行手。"
   },
   {
     keys: ["趋势", "短视频", "长视频", "出路", "商业化出路", "行业看法", "大环境", "直播"],
@@ -195,13 +188,22 @@ export default function Portfolio() {
   const [activeTimelineIdx, setActiveTimelineIdx] = useState(0); 
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [lightboxData, setLightboxData] = useState(null);
+  
+  // 余华语音状态及引用
   const [showAudioText, setShowAudioText] = useState(false);
+  const audioRef = useRef(null);
+
+  // 汉堡菜单状态
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const seasons = ['SEASON I', 'SEASON II', 'SEASON III', 'SEASON IV'];
   const [jiangZhenDeSeason, setJiangZhenDeSeason] = useState('SEASON I');
   const [playKeynote, setPlayKeynote] = useState(false); 
 
   const [activeJymIndex, setActiveJymIndex] = useState(0);
+
+  const [playingStates, setPlayingStates] = useState({ podcast: false });
+  const togglePlay = (key) => setPlayingStates(prev => ({ ...prev, [key]: !prev[key] }));
 
   const scrollToBottom = () => messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   useEffect(() => scrollToBottom(), [messages, isChatOpen]);
@@ -236,6 +238,22 @@ export default function Portfolio() {
       
       setMessages(prev => [...prev, { text: botReply, isBot: true }]);
     }, 800);
+  };
+
+  // 语音播放控制逻辑
+  const handleAudioToggle = () => {
+    if (showAudioText) {
+      setShowAudioText(false);
+      if (audioRef.current) {
+        audioRef.current.pause();
+      }
+    } else {
+      setShowAudioText(true);
+      if (!audioRef.current) {
+        audioRef.current = new Audio('/images/余华讲话.m4a');
+      }
+      audioRef.current.play().catch(e => console.log("Audio play failed:", e));
+    }
   };
 
   const ZoomableImage = ({ src, textFallback, className, imgClass = "object-cover", bg = "bg-[#D9E2E8]" }) => (
@@ -287,6 +305,8 @@ export default function Portfolio() {
       {/* --- 导航栏 --- */}
       <nav className="fixed top-0 w-full p-6 md:px-12 flex justify-between items-center z-50 bg-[#F4F1EA]/80 backdrop-blur-md border-b border-[#3F57A6]/5">
         <div className="font-serif text-xl md:text-2xl font-bold tracking-tighter text-[#3F57A6]">刘姗姗.</div>
+        
+        {/* 电脑端导航 */}
         <div className="hidden md:flex gap-6 lg:gap-8 text-[11px] lg:text-xs tracking-widest uppercase font-bold text-[#3F57A6]">
           <Magnetic><a href="#about" className="hover:opacity-60 transition-opacity block py-2">关于我 About</a></Magnetic>
           <Magnetic><a href="#timeline" className="hover:opacity-60 transition-opacity block py-2">履历 Timeline</a></Magnetic>
@@ -295,6 +315,26 @@ export default function Portfolio() {
           <Magnetic><a href="#co-branding" className="hover:opacity-60 transition-opacity block py-2">创意营销 Marketing</a></Magnetic>
           <Magnetic><a href="#entertainment" className="hover:opacity-60 transition-opacity block py-2">娱乐合作 Ent.</a></Magnetic>
         </div>
+
+        {/* 手机端汉堡菜单按钮 */}
+        <button 
+          className="md:hidden text-[#3F57A6] p-2 -mr-2"
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        >
+          {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
+
+        {/* 手机端下拉导航 */}
+        {isMobileMenuOpen && (
+          <div className="absolute top-full left-0 w-full bg-[#F4F1EA]/95 backdrop-blur-xl border-b border-[#3F57A6]/10 flex flex-col py-6 px-8 gap-6 shadow-2xl animate-in slide-in-from-top-4 md:hidden z-50">
+            <a href="#about" onClick={() => setIsMobileMenuOpen(false)} className="text-xs tracking-widest uppercase font-bold text-[#3F57A6] pb-2 border-b border-[#3F57A6]/10">关于我 About</a>
+            <a href="#timeline" onClick={() => setIsMobileMenuOpen(false)} className="text-xs tracking-widest uppercase font-bold text-[#3F57A6] pb-2 border-b border-[#3F57A6]/10">履历 Timeline</a>
+            <a href="#ogc-cases" onClick={() => setIsMobileMenuOpen(false)} className="text-xs tracking-widest uppercase font-bold text-[#3F57A6] pb-2 border-b border-[#3F57A6]/10">内容 Content</a>
+            <a href="#channel-coop" onClick={() => setIsMobileMenuOpen(false)} className="text-xs tracking-widest uppercase font-bold text-[#3F57A6] pb-2 border-b border-[#3F57A6]/10">渠道 Channel</a>
+            <a href="#co-branding" onClick={() => setIsMobileMenuOpen(false)} className="text-xs tracking-widest uppercase font-bold text-[#3F57A6] pb-2 border-b border-[#3F57A6]/10">创意营销 Marketing</a>
+            <a href="#entertainment" onClick={() => setIsMobileMenuOpen(false)} className="text-xs tracking-widest uppercase font-bold text-[#3F57A6] pb-2 border-b border-[#3F57A6]/10">娱乐合作 Ent.</a>
+          </div>
+        )}
       </nav>
 
       {/* --- Hero Section --- */}
@@ -469,23 +509,33 @@ export default function Portfolio() {
           </div>
 
           <FadeIn delay={100}>
-            <div className="relative w-full py-16 md:py-24 mt-16 mb-8 group cursor-pointer" onClick={() => setLightboxData({ src: "/images/阿那亚现场.jpg", text: "阿那亚全景" })}>
+            <div className="relative w-full py-16 md:py-24 mt-16 mb-8">
               <div className="animate-marquee flex gap-4 md:gap-6 px-4">
-                {[...Array(6)].map((_, i) => (
-                  <div key={i} className="shrink-0 w-[65vw] md:w-[40vw] lg:w-[30vw] aspect-[4/3] rounded-sm overflow-hidden shadow-md bg-[#D9E2E8]">
-                    <img src="/images/阿那亚现场.jpg" alt="阿那亚现场" className="w-full h-full object-cover" />
+                {[
+                  "/images/阿那亚现场.jpg",
+                  "/images/阿那亚现场1.png",
+                  "/images/阿那亚现场2.jpeg",
+                  "/images/阿那亚现场3.jpeg",
+                  "/images/阿那亚现场4.jpeg"
+                ].map((img, i) => (
+                  <div 
+                    key={i} 
+                    className="shrink-0 w-[65vw] md:w-[40vw] lg:w-[30vw] aspect-[4/3] rounded-sm overflow-hidden shadow-md bg-[#D9E2E8] cursor-pointer group"
+                    onClick={() => setLightboxData({ src: img, text: "阿那亚现场" })}
+                  >
+                    <img src={img} alt="阿那亚现场" className="w-full h-full object-cover" />
                   </div>
                 ))}
               </div>
-              <div className="absolute top-1/2 -translate-y-1/2 left-6 md:left-12 lg:left-[10%] bg-[#F4F1EA]/95 backdrop-blur-md p-6 md:p-10 lg:p-12 shadow-[0_20px_60px_rgba(0,0,0,0.1)] w-[85%] md:max-w-xl lg:max-w-2xl border-l-4 border-[#3F57A6]">
-                <h3 className="text-2xl md:text-4xl lg:text-5xl font-serif mb-4 md:mb-6 text-[#3F57A6] tracking-tight leading-tight">
-                  岛屿书声日 <span className="text-xl md:text-3xl mx-2 font-light text-[#3F57A6]/50">×</span> 三亚阿那亚
+              <div className="absolute top-1/2 -translate-y-1/2 left-6 md:left-12 lg:left-[10%] bg-[#F4F1EA]/70 backdrop-blur-md p-4 md:p-8 lg:p-10 shadow-[0_20px_60px_rgba(0,0,0,0.1)] w-[80%] md:max-w-lg lg:max-w-xl border-l-4 border-[#3F57A6]">
+                <h3 className="text-xl md:text-3xl lg:text-4xl font-serif mb-3 md:mb-4 text-[#3F57A6] tracking-tight leading-tight">
+                  岛屿书声日 <span className="text-lg md:text-2xl mx-2 font-light text-[#3F57A6]/50">×</span> 三亚阿那亚
                 </h3>
-                <p className="text-sm md:text-base lg:text-lg text-[#2C3E50]/90 leading-relaxed font-medium">
+                <p className="text-xs md:text-sm lg:text-base text-[#2C3E50]/90 leading-relaxed font-medium">
                   首次线下售票活动，将文化综艺落地为实体文化盛会，余华、刘擎、戴建业等14位头部名人齐聚。
                 </p>
-                <div className="mt-6 inline-flex items-center gap-2 text-xs font-bold tracking-widest text-[#3F57A6]/60 uppercase">
-                  <ZoomIn size={14} /> 点击图片区域放大查看现场
+                <div className="mt-4 inline-flex items-center gap-2 text-xs font-bold tracking-widest text-[#3F57A6]/60 uppercase">
+                  <ZoomIn size={12} /> 点击图片放大查看
                 </div>
               </div>
             </div>
@@ -507,23 +557,7 @@ export default function Portfolio() {
               {/* --- 音频彩蛋区域开始 --- */}
                <FadeIn delay={100} className="relative flex flex-col items-start md:items-end mt-4 md:mt-0 z-[100]">
                  <button
-                   onClick={() => {
-                     if (showAudioText) {
-                       setShowAudioText(false);
-                       // 停止播放
-                       if (window.easterEggAudio) {
-                         window.easterEggAudio.pause();
-                         window.easterEggAudio.currentTime = 0;
-                       }
-                     } else {
-                       setShowAudioText(true);
-                       // 开始播放
-                       if (!window.easterEggAudio) {
-                         window.easterEggAudio = new Audio('/audio/yuhua.m4a'); // 确保这里的路径和您的文件名一致
-                       }
-                       window.easterEggAudio.play();
-                     }
-                   }}
+                   onClick={handleAudioToggle}
                    className="flex items-center gap-2 bg-[#3F57A6] text-[#F4F1EA] px-6 py-3.5 rounded-full hover:bg-[#2C3E80] transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5"
                  >
                    {showAudioText ? <Pause size={16} /> : <Play size={16} fill="currentColor" />}
@@ -544,7 +578,7 @@ export default function Portfolio() {
                          <p className="mb-2">“我前几天在三亚阿那亚的草坪上，做了一个《岛屿读书》的线下宣传。今日头条主要做，然后江苏卫视啊，还有阿那亚社区、三亚文旅都有合作，<strong className="font-bold text-[#3F57A6]">那个活动做得很成功。</strong>”</p>
                          <p>“除了其他有些我说的话比较受欢迎之外，最热的是哪一条你知道吗？就是今日头条的两个人，<span className="bg-yellow-200/60 font-bold px-1 not-italic text-[#3F57A6]">一个叫姗姗</span>，还有一个叫唐羊，他们两个人设计的。就是要我测一下我是什么（MBTI），结果我测下来我是 ENFP。我很惊讶，因为我一直以为我是个E人……（笑）”</p>
                        </div>
-                       <p className="text-[10px] text-[#3F57A6]/60 font-bold tracking-wider text-right">— 余华 现场分享</p>
+                       <p className="text-[10px] text-[#3F57A6]/60 font-bold tracking-wider text-right">— 余华 浙师大现场分享</p>
                    </div>
                  )}
                </FadeIn>
@@ -615,28 +649,16 @@ export default function Portfolio() {
               </div>
             </FadeIn>
 
-            {/* 3. 小宇宙播客 (Left) */}
+            {/* 3. 小宇宙播客 (Left) - 已修改为 16:9 视频 */}
             <FadeIn delay={300} className="relative z-30 mb-12 md:mb-16">
               <div className="flex flex-col md:flex-row items-center relative group mt-16 md:mt-4 justify-center md:justify-start">
-                <div className="w-full md:w-5/12 max-w-[280px] aspect-square bg-white rounded-2xl shadow-xl overflow-hidden relative flex-shrink-0 border border-[#3F57A6]/5 flex flex-col justify-between p-6 md:p-8">
-                  <div className="flex justify-between items-start">
-                    <div className="w-12 h-12 rounded-full bg-[#F4F1EA] text-[#3F57A6] flex items-center justify-center shadow-inner"><Headphones size={20} /></div>
-                  </div>
-                  <div className="mt-auto">
-                    <div className="flex items-center justify-between mb-3"><span className="text-xs font-bold text-[#2C3E50]">Vol.102 现场对话</span></div>
-                    <div className="flex justify-center gap-6 items-center text-[#3F57A6]">
-                      <a 
-                        href="https://www.xiaoyuzhoufm.com/episode/67590f79d461a2cd6bb407f8" 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="w-12 h-12 rounded-full bg-[#3F57A6] text-white flex items-center justify-center shadow-lg hover:scale-105 transition-transform cursor-pointer"
-                      >
-                        <Play size={18} fill="currentColor" className="ml-1" />
-                      </a>
-                    </div>
-                  </div>
+                
+                {/* 16:9 原生视频组件 */}
+                <div className="w-full md:w-7/12 max-w-[480px] aspect-video bg-gray-900 rounded-xl shadow-xl overflow-hidden relative flex-shrink-0 border border-[#3F57A6]/5">
+                  <video src="/images/播客视频.mp4" controls playsInline preload="metadata" className="w-full h-full object-cover" />
                 </div>
-                <div className="w-full md:w-7/12 pt-8 md:pt-0 md:-ml-8 z-40">
+
+                <div className="w-full md:w-5/12 pt-8 md:pt-0 md:pl-8 z-40 text-left">
                   <div className="bg-[#E4EAEF]/90 md:bg-transparent p-6 md:p-0 backdrop-blur-sm md:backdrop-blur-none">
                     <p className="text-[10px] font-bold tracking-widest text-[#3F57A6]/60 mb-2 uppercase">Podcast Ecosystem</p>
                     <h4 className="text-3xl md:text-5xl font-serif text-[#3F57A6] mb-4">× 小宇宙播客</h4>
@@ -912,37 +934,6 @@ export default function Portfolio() {
               </div>
             </div>
           </FadeIn>
-
-          {/* ==========================================
-              展示模块三：《头头是道》 (遵循您的要求，保留原版不动)
-          ========================================== */}
-          <FadeIn delay={300}>
-            <div className="w-full bg-[#EAE5DB]/40 border border-[#3F57A6]/10 p-8 md:p-12 rounded-sm mt-32 flex flex-col md:flex-row gap-12 md:gap-16 items-start overflow-hidden">
-              <div className="w-full md:w-2/3 z-20 flex flex-col justify-start">
-                <div className="flex items-center gap-4 mb-5">
-                  <div className="flex items-center bg-white/60 border border-[#3F57A6]/20 rounded-full pl-1 pr-4 py-1 shadow-sm">
-                     <div className="w-6 h-6 rounded-full bg-[#3F57A6] text-[#F4F1EA] flex items-center justify-center mr-2 shadow-md"><span className="text-[10px] font-serif italic pr-0.5">III</span></div>
-                     <span className="text-[11px] tracking-[0.2em] text-[#3F57A6] font-bold">社会财经</span>
-                  </div>
-                  <div className="w-8 h-px bg-[#3F57A6]/20"></div>
-                  <span className="text-[10px] tracking-[0.25em] text-[#3F57A6]/60 font-serif uppercase font-bold">Social & Finance</span>
-                </div>
-                <h4 className="text-4xl md:text-5xl font-serif text-[#3F57A6] mb-6 tracking-tight">《头头是道》</h4>
-                <p className="text-sm md:text-base text-[#2C3E50]/80 leading-relaxed max-w-md mb-10">聚焦国计民生领域热点话题，邀请领域内权威专家、学者，输出专业、深度的精品内容。</p>
-                <div className="flex flex-wrap justify-center md:justify-start content-start gap-x-4 gap-y-6 pt-8 border-t border-[#3F57A6]/10 max-w-xl">
-                  {BUBBLE_KEYWORDS.map((tag, i) => (
-                    <span key={i} className={`px-5 py-2.5 rounded-full border border-[#3F57A6]/15 bg-white/90 text-[11.5px] text-[#3F57A6]/90 shadow-sm tracking-widest font-medium cursor-default animate-float ${tag.offset} ${tag.margin}`} style={{ animationDelay: `${i * 0.3}s` }}>{tag.text}</span>
-                  ))}
-                </div>
-              </div>
-
-              <div className="w-full md:w-1/3 flex flex-row md:flex-col justify-start items-center md:items-end gap-3 md:gap-4 mt-8 md:mt-0">
-                <ZoomableImage src="/images/年终群像.png" className="w-[30%] md:w-full max-w-[110px] md:max-w-[130px] aspect-[4/5] rounded-xl shadow-md transition-transform duration-500 hover:scale-[1.02]" textFallback="养老议题" bg="bg-[#D9E2E8]" />
-                <ZoomableImage className="w-[30%] md:w-full max-w-[110px] md:max-w-[130px] aspect-[4/5] rounded-xl shadow-md transition-transform duration-500 hover:scale-[1.02]" textFallback="新能源" bg="bg-[#C5D3DD]" />
-                <ZoomableImage className="w-[30%] md:w-full max-w-[110px] md:max-w-[130px] aspect-[4/5] rounded-xl shadow-md transition-transform duration-500 hover:scale-[1.02]" textFallback="医疗保险" bg="bg-[#D9E2E8]" />
-              </div>
-            </div>
-          </FadeIn>
         </div>
       </section>
 
@@ -1160,30 +1151,23 @@ export default function Portfolio() {
           <FadeIn delay={200}>
             <div className="mb-24">
                <div className="flex items-center gap-3 mb-8"><span className="text-[#A73C33] text-[10px] tracking-[0.2em] font-bold uppercase border-b border-[#A73C33]/30 pb-1">02 / 行业大事件</span></div>
-               
-               {/* 手机端横向滑动，电脑端保持4列网格 */}
                <div className="flex md:grid overflow-x-auto md:overflow-visible snap-x snap-mandatory scrollbar-hide gap-4 md:gap-6 md:grid-cols-4 h-auto pb-6 md:pb-0 -mx-6 px-6 md:mx-0 md:px-0">
-                 
                  <div className="shrink-0 w-[75vw] sm:w-[50vw] md:w-auto snap-center bg-[#A73C33] rounded-3xl p-6 flex flex-col justify-between overflow-hidden relative group shadow-sm">
                     <div className="relative z-10 mb-6"><h4 className="text-[#F4F1EA] text-xl font-serif mb-1">FIRST 电影节</h4><p className="text-[#F4F1EA]/80 text-[11px] tracking-wider">合作超短片计划</p></div>
                     <div className="w-full aspect-[9/16] bg-black/20 rounded-2xl overflow-hidden shadow-inner transform group-hover:scale-105 transition-transform duration-500"><ZoomableImage src="/images/first.jpeg" textFallback="FIRST现场" className="w-full h-full opacity-90 mix-blend-overlay" /></div>
                  </div>
-                 
                  <div className="shrink-0 w-[75vw] sm:w-[50vw] md:w-auto snap-center bg-[#FFFDF8] rounded-3xl p-6 flex flex-col justify-between overflow-hidden relative group border border-[#A73C33]/15 shadow-sm">
                     <div className="relative z-10 mb-6"><h4 className="text-[#A73C33] text-xl font-serif mb-1">金鸡电影节</h4><p className="text-slate-600 text-[11px] tracking-wider">开、闭幕式植入宣传片</p></div>
                     <div className="w-full aspect-[9/16] bg-[#F4F1EA] rounded-2xl overflow-hidden shadow-inner transform group-hover:scale-105 transition-transform duration-500"><ZoomableImage src="/images/金鸡.jpg" textFallback="金鸡宣传片" className="w-full h-full mix-blend-multiply opacity-80" /></div>
                  </div>
-                 
                  <div className="shrink-0 w-[75vw] sm:w-[50vw] md:w-auto snap-center bg-[#A73C33] rounded-3xl p-6 flex flex-col justify-between overflow-hidden relative group shadow-sm">
                     <div className="relative z-10 mb-6"><h4 className="text-[#F4F1EA] text-xl font-serif mb-1">海南岛电影节</h4><p className="text-[#F4F1EA]/80 text-[11px] tracking-wider">官方影评团合作</p></div>
                     <div className="w-full aspect-[9/16] bg-black/20 rounded-2xl overflow-hidden shadow-inner transform group-hover:scale-105 transition-transform duration-500"><ZoomableImage src="/images/海南电影节.jpg" textFallback="海南影评团" className="w-full h-full opacity-90 mix-blend-overlay" /></div>
                  </div>
-                 
                  <div className="shrink-0 w-[75vw] sm:w-[50vw] md:w-auto snap-center bg-[#FFFDF8] rounded-3xl p-6 flex flex-col justify-between overflow-hidden relative group border border-[#A73C33]/15 shadow-sm">
                     <div className="relative z-10 mb-6"><h4 className="text-[#A73C33] text-xl font-serif mb-1">上海电影节</h4><p className="text-slate-600 text-[11px] tracking-wider">平台作者参与官方刊物</p></div>
                     <div className="w-full aspect-[9/16] bg-[#F4F1EA] rounded-2xl overflow-hidden shadow-inner transform group-hover:scale-105 transition-transform duration-500"><ZoomableImage src="/images/上影节.jpg" textFallback="上影节刊物" className="w-full h-full mix-blend-multiply opacity-80" /></div>
                  </div>
-                 
                </div>
             </div>
           </FadeIn>
