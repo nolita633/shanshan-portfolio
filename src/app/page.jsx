@@ -203,9 +203,6 @@ export default function Portfolio() {
 
   const [activeJymIndex, setActiveJymIndex] = useState(0);
 
-  const [playingStates, setPlayingStates] = useState({ podcast: false });
-  const togglePlay = (key) => setPlayingStates(prev => ({ ...prev, [key]: !prev[key] }));
-
   const scrollToBottom = () => messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   useEffect(() => scrollToBottom(), [messages, isChatOpen]);
 
@@ -533,8 +530,8 @@ export default function Portfolio() {
                    <span className="text-xs font-bold tracking-widest uppercase">点击收听余华原声</span>
                  </button>
                  {showAudioText && (
-                   <div className="absolute top-full mt-4 right-0 p-5 bg-[#F4F1EA] shadow-[0_30px_60px_rgba(0,0,0,0.15)] rounded-sm w-[300px] md:w-[360px] text-sm text-[#2C3E50] border-t-4 border-[#3F57A6] animate-in fade-in slide-in-from-top-2 origin-top-right">
-                       <div className="absolute -top-[10px] right-10 w-4 h-4 bg-[#F4F1EA] rotate-45 border-t border-l border-[#3F57A6]"></div>
+                   <div className="absolute top-full mt-4 left-0 md:left-auto md:right-0 p-5 bg-[#F4F1EA] shadow-[0_30px_60px_rgba(0,0,0,0.15)] rounded-sm w-[85vw] max-w-[320px] md:w-[360px] md:max-w-none text-sm text-[#2C3E50] border-t-4 border-[#3F57A6] animate-in fade-in slide-in-from-top-2 origin-top-left md:origin-top-right z-50">
+                       <div className="absolute -top-[10px] left-10 md:left-auto md:right-10 w-4 h-4 bg-[#F4F1EA] rotate-45 border-t border-l border-[#3F57A6]"></div>
                        <div className="mb-3 flex items-center justify-between border-b border-[#3F57A6]/10 pb-2">
                          <span className="text-xs font-bold text-[#3F57A6] tracking-widest">正在播放实录...</span>
                          <div className="flex gap-1">
@@ -545,7 +542,7 @@ export default function Portfolio() {
                        </div>
                        <div className="italic font-serif text-[#2C3E50]/90 leading-relaxed mb-3 text-xs">
                          <p className="mb-2">“前几天在阿那亚做《岛屿读书》宣传，多方合作，<strong className="font-bold text-[#3F57A6]">那个活动做得很成功。</strong>”</p>
-                         <p>“除了我说的话受欢迎外，最热的是哪条你知道吗？就是今日头条的两个人，<span className="bg-yellow-200/60 font-bold px-1 not-italic text-[#3F57A6]">一个叫姗姗</span>，和唐羊设计的。让我测 MBTI，结果我是 INFP。一直以为我是个E人……（笑）”</p>
+                         <p>“除了我说的话受欢迎外，最热的是哪一条你知道吗？就是今日头条的两个人，<span className="bg-yellow-200/60 font-bold px-1 not-italic text-[#3F57A6]">一个叫姗姗</span>，和唐羊设计的。让我测 MBTI，结果我是 ENFP。一直以为我是个E人……（笑）”</p>
                        </div>
                        <p className="text-[10px] text-[#3F57A6]/60 font-bold tracking-wider text-right">— 余华 现场分享</p>
                    </div>
@@ -617,15 +614,15 @@ export default function Portfolio() {
             {/* 3. 小宇宙播客 (Left) */}
             <FadeIn delay={300} className="relative z-30 mb-12 md:mb-16">
               <div className="flex flex-col md:flex-row items-center relative group mt-16 md:mt-4 justify-center md:justify-start">
-                <div className="w-full md:w-5/12 max-w-[280px] aspect-square bg-white rounded-2xl shadow-xl overflow-hidden relative flex-shrink-0 border border-[#3F57A6]/5 flex flex-col justify-between p-6 md:p-8 cursor-pointer" onClick={() => window.open('https://www.xiaoyuzhoufm.com/episode/67590f79d461a2cd6bb407f8', '_blank')}>
+                <div className="w-full md:w-5/12 max-w-[280px] aspect-square bg-white rounded-2xl shadow-xl overflow-hidden relative flex-shrink-0 border border-[#3F57A6]/5 flex flex-col justify-between p-6 md:p-8">
                   <div className="flex justify-between items-start">
                     <div className="w-12 h-12 rounded-full bg-[#F4F1EA] text-[#3F57A6] flex items-center justify-center shadow-inner"><Headphones size={20} /></div>
                   </div>
                   <div className="mt-auto">
-                    <div className="flex items-center justify-between mb-3"><span className="text-xs font-bold text-[#2C3E50]">Vol.102 对话余华</span></div>
+                    <div className="flex items-center justify-between mb-3"><span className="text-xs font-bold text-[#2C3E50]">Vol.102 现场对话</span></div>
                     <div className="flex justify-center gap-6 items-center text-[#3F57A6]">
-                      <div className="w-12 h-12 rounded-full bg-[#3F57A6] text-white flex items-center justify-center shadow-lg hover:scale-105 transition-transform cursor-pointer" onClick={(e) => { e.stopPropagation(); togglePlay('podcast'); }}>
-                        {playingStates.podcast ? <Pause size={18} fill="currentColor" /> : <Play size={18} fill="currentColor" className="ml-1" />}
+                      <div className="w-12 h-12 rounded-full bg-[#3F57A6] text-white flex items-center justify-center shadow-lg hover:scale-105 transition-transform cursor-pointer" onClick={() => window.open('https://www.xiaoyuzhoufm.com/episode/67590f79d461a2cd6bb407f8', '_blank')}>
+                        <Play size={18} fill="currentColor" className="ml-1" />
                       </div>
                     </div>
                   </div>
@@ -1002,35 +999,35 @@ export default function Portfolio() {
                 </div>
 
                 {/* --- Bento Grid 便当盒排版开始 --- */}
-                <div className="w-full lg:w-[55%] h-[400px] md:h-[480px] flex gap-3 md:gap-4 relative z-10 mt-8 lg:mt-0">
+                <div className="w-full lg:w-[55%] h-[320px] sm:h-[400px] md:h-[480px] flex gap-2 md:gap-4 relative z-10 mt-8 lg:mt-0">
                   {/* 左侧大竖条：视频 1 (周边开箱) */}
-                  <div className="w-[45%] h-full rounded-3xl overflow-hidden shadow-[0_10px_30px_rgba(220,38,38,0.15)] relative border-2 border-white group bg-red-50">
+                  <div className="w-[45%] h-full rounded-2xl md:rounded-3xl overflow-hidden shadow-[0_10px_30px_rgba(220,38,38,0.15)] relative border-2 border-white group bg-red-50">
                     <video src="/images/旺仔周边视频.mp4" autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                    <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-2.5 py-1.5 rounded-lg text-[9px] text-red-600 font-bold tracking-widest shadow-sm border border-red-100">实体周边大赏</div>
+                    <div className="absolute top-2 left-2 md:top-3 md:left-3 bg-white/90 backdrop-blur-sm px-2 md:px-2.5 py-1 md:py-1.5 rounded-lg text-[8px] md:text-[9px] text-red-600 font-bold tracking-widest shadow-sm border border-red-100">实体周边大赏</div>
                   </div>
                   
                   {/* 右侧堆叠区域 */}
-                  <div className="w-[55%] h-full flex flex-col gap-3 md:gap-4">
+                  <div className="w-[55%] h-full flex flex-col gap-2 md:gap-4">
                      {/* 右上横版：视频 2 (旺仔动画) */}
-                     <div className="h-[55%] w-full rounded-3xl overflow-hidden shadow-[0_10px_30px_rgba(220,38,38,0.1)] relative border-2 border-white group bg-yellow-50">
+                     <div className="h-[55%] w-full rounded-2xl md:rounded-3xl overflow-hidden shadow-[0_10px_30px_rgba(220,38,38,0.1)] relative border-2 border-white group bg-yellow-50">
                        <video src="/images/旺仔牛奶.mp4" autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                       <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-2.5 py-1.5 rounded-lg text-[9px] text-yellow-600 font-bold tracking-widest shadow-sm border border-yellow-200">联名概念动画</div>
+                       <div className="absolute top-2 left-2 md:top-3 md:left-3 bg-white/90 backdrop-blur-sm px-2 md:px-2.5 py-1 md:py-1.5 rounded-lg text-[8px] md:text-[9px] text-yellow-600 font-bold tracking-widest shadow-sm border border-yellow-200">联名概念动画</div>
                      </div>
                      
                      {/* 右下双格：静态素材图 */}
-                     <div className="h-[45%] w-full flex gap-3 md:gap-4">
+                     <div className="h-[45%] w-full flex gap-2 md:gap-4">
                        {/* 图 A: 互动包装盒 */}
-                       <div className="w-1/2 h-full rounded-3xl overflow-hidden shadow-[0_10px_30px_rgba(220,38,38,0.1)] relative border-2 border-white group cursor-zoom-in bg-orange-50" onClick={() => setLightboxData({ src: '/images/旺仔展示.gif', text: '互动包装盒' })}>
+                       <div className="w-1/2 h-full rounded-2xl md:rounded-3xl overflow-hidden shadow-[0_10px_30px_rgba(220,38,38,0.1)] relative border-2 border-white group cursor-zoom-in bg-orange-50" onClick={() => setLightboxData({ src: '/images/旺仔展示.gif', text: '互动包装盒' })}>
                          <img src="/images/旺仔展示.gif" className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" alt="包装盒" />
                          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-center justify-center">
-                           <ZoomIn className="text-white opacity-0 group-hover:opacity-100 transition-opacity w-5 h-5" />
+                           <ZoomIn className="text-white opacity-0 group-hover:opacity-100 transition-opacity w-4 h-4 md:w-5 md:h-5" />
                          </div>
                        </div>
                        {/* 图 B: 联名海报 */}
-                       <div className="w-1/2 h-full rounded-3xl overflow-hidden shadow-[0_10px_30px_rgba(220,38,38,0.1)] relative border-2 border-white group cursor-zoom-in bg-red-100" onClick={() => setLightboxData({ src: '/images/旺仔主题海报.jpeg', text: '联名海报' })}>
+                       <div className="w-1/2 h-full rounded-2xl md:rounded-3xl overflow-hidden shadow-[0_10px_30px_rgba(220,38,38,0.1)] relative border-2 border-white group cursor-zoom-in bg-red-100" onClick={() => setLightboxData({ src: '/images/旺仔主题海报.jpeg', text: '联名海报' })}>
                          <img src="/images/旺仔主题海报.jpeg" className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" alt="联名海报" />
                          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-center justify-center">
-                           <ZoomIn className="text-white opacity-0 group-hover:opacity-100 transition-opacity w-5 h-5" />
+                           <ZoomIn className="text-white opacity-0 group-hover:opacity-100 transition-opacity w-4 h-4 md:w-5 md:h-5" />
                          </div>
                        </div>
                      </div>
@@ -1118,20 +1115,20 @@ export default function Portfolio() {
           <FadeIn delay={200}>
             <div className="mb-24">
                <div className="flex items-center gap-3 mb-8"><span className="text-[#A73C33] text-[10px] tracking-[0.2em] font-bold uppercase border-b border-[#A73C33]/30 pb-1">02 / 行业大事件</span></div>
-               <div className="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-6 h-auto">
-                 <div className="bg-[#A73C33] rounded-3xl p-6 flex flex-col justify-between overflow-hidden relative group shadow-sm">
+               <div className="flex md:grid overflow-x-auto md:overflow-visible snap-x snap-mandatory scrollbar-hide gap-4 md:gap-6 md:grid-cols-4 h-auto pb-6 md:pb-0 -mx-6 px-6 md:mx-0 md:px-0">
+                 <div className="shrink-0 w-[75vw] sm:w-[50vw] md:w-auto snap-center bg-[#A73C33] rounded-3xl p-6 flex flex-col justify-between overflow-hidden relative group shadow-sm">
                     <div className="relative z-10 mb-6"><h4 className="text-[#F4F1EA] text-xl font-serif mb-1">FIRST 电影节</h4><p className="text-[#F4F1EA]/80 text-[11px] tracking-wider">合作超短片计划</p></div>
                     <div className="w-full aspect-[9/16] bg-black/20 rounded-2xl overflow-hidden shadow-inner transform group-hover:scale-105 transition-transform duration-500"><ZoomableImage src="/images/first.jpeg" textFallback="FIRST现场" className="w-full h-full opacity-90 mix-blend-overlay" /></div>
                  </div>
-                 <div className="bg-[#FFFDF8] rounded-3xl p-6 flex flex-col justify-between overflow-hidden relative group border border-[#A73C33]/15 shadow-sm">
+                 <div className="shrink-0 w-[75vw] sm:w-[50vw] md:w-auto snap-center bg-[#FFFDF8] rounded-3xl p-6 flex flex-col justify-between overflow-hidden relative group border border-[#A73C33]/15 shadow-sm">
                     <div className="relative z-10 mb-6"><h4 className="text-[#A73C33] text-xl font-serif mb-1">金鸡电影节</h4><p className="text-slate-600 text-[11px] tracking-wider">开、闭幕式植入宣传片</p></div>
                     <div className="w-full aspect-[9/16] bg-[#F4F1EA] rounded-2xl overflow-hidden shadow-inner transform group-hover:scale-105 transition-transform duration-500"><ZoomableImage src="/images/金鸡.jpg" textFallback="金鸡宣传片" className="w-full h-full mix-blend-multiply opacity-80" /></div>
                  </div>
-                 <div className="bg-[#A73C33] rounded-3xl p-6 flex flex-col justify-between overflow-hidden relative group shadow-sm">
+                 <div className="shrink-0 w-[75vw] sm:w-[50vw] md:w-auto snap-center bg-[#A73C33] rounded-3xl p-6 flex flex-col justify-between overflow-hidden relative group shadow-sm">
                     <div className="relative z-10 mb-6"><h4 className="text-[#F4F1EA] text-xl font-serif mb-1">海南岛电影节</h4><p className="text-[#F4F1EA]/80 text-[11px] tracking-wider">官方影评团合作</p></div>
                     <div className="w-full aspect-[9/16] bg-black/20 rounded-2xl overflow-hidden shadow-inner transform group-hover:scale-105 transition-transform duration-500"><ZoomableImage src="/images/海南电影节.jpg" textFallback="海南影评团" className="w-full h-full opacity-90 mix-blend-overlay" /></div>
                  </div>
-                 <div className="bg-[#FFFDF8] rounded-3xl p-6 flex flex-col justify-between overflow-hidden relative group border border-[#A73C33]/15 shadow-sm">
+                 <div className="shrink-0 w-[75vw] sm:w-[50vw] md:w-auto snap-center bg-[#FFFDF8] rounded-3xl p-6 flex flex-col justify-between overflow-hidden relative group border border-[#A73C33]/15 shadow-sm">
                     <div className="relative z-10 mb-6"><h4 className="text-[#A73C33] text-xl font-serif mb-1">上海电影节</h4><p className="text-slate-600 text-[11px] tracking-wider">平台作者参与官方刊物</p></div>
                     <div className="w-full aspect-[9/16] bg-[#F4F1EA] rounded-2xl overflow-hidden shadow-inner transform group-hover:scale-105 transition-transform duration-500"><ZoomableImage src="/images/上影节.jpg" textFallback="上影节刊物" className="w-full h-full mix-blend-multiply opacity-80" /></div>
                  </div>
