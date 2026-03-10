@@ -112,7 +112,7 @@ const JIANG_ZHEN_DE_DATA = {
   'SEASON IV': { desc: "第四季：奥运冷知识趣味科普，有邓亚萍也有熊大熊二！", items: [{ title: "海报 1", img: "/images/讲真的奥运-1.jpeg" }, { title: "海报 2", img: "/images/讲真的奥运-2.jpeg" }, { title: "海报 3", img: "/images/讲真的奥运-3.jpeg" }, { title: "海报 4", img: "/images/讲真的奥运-4.jpeg" }, { title: "海报 5", img: "/images/讲真的奥运-5.jpeg" }] },
 };
 
-// 头条见一面 已修改为 9:16
+// 头条见一面 9:16
 const JIAN_YI_MIAN_POSTERS = [
   { id: 0, title: "奥运特别企划", tag: "奥运访谈", desc: "与《人物》杂志等6家媒体合作，独家访问孙杨、全红婵家人等7位奥运冠军及背后人物，单条内容破亿。", link: "https://www.douyin.com/video/7399459930832407871", posterFallback: "孙杨访谈海报", img: "/images/孙杨.jpg" },
   { id: 1, title: "母亲节专题", tag: "情感纪实", desc: "联合红星新闻、中国蓝新闻等上线4期母亲节纪录片，霸榜抖音Top1，引发强烈社会情感共振。", link: "https://www.douyin.com/video/7367264641413631259", posterFallback: "母亲节群像海报", img: "/images/母亲节.png" },
@@ -170,7 +170,7 @@ const AI_KNOWLEDGE = [
   },
   {
     keys: ["ai", "赋能", "大模型", "人工智能", "工具", "gpt", "效率", "降本增效"],
-    text: "【AI 赋能】在实际业务中，我主要利用大模型（如 GPT/Gemini）进行复杂信息处理，比如梳理海量娱乐专栏的选题库、提炼高频话题等，大幅提升了案头效率。\n\n但更重要的一点是，我正在用 AI 拓展我作为内容运营的能力边界。比如，您现在看到的这个极具设计感和 3D 动效的在线 Portfolio 网站，其实就是我亲手通过与 AI 结结编程写代码做出来的。它证明了即使我不是前端开发，只要具备极强的产品审美和逻辑拆解能力，AI 就能成为我最强大的外脑和执行手。"
+    text: "【AI 赋能】在实际业务中，我主要利用大模型（如 GPT/Gemini）进行复杂信息处理，比如梳理海量娱乐专栏的选题库、提炼高频话题等，大幅提升了案头效率。\n\n但更重要的一点是，我正在用 AI 拓展我作为内容运营的能力边界。比如，您现在看到的这个极具设计感和 3D 动效的在线 Portfolio 网站，其实就是我亲手通过与 AI 结对编程写代码做出来的。它证明了即使我不是前端开发，只要具备极强的产品审美和逻辑拆解能力，AI 就能成为我最强大的外脑和执行手。"
   },
   {
     keys: ["趋势", "短视频", "长视频", "出路", "商业化出路", "行业看法", "大环境", "直播"],
@@ -541,8 +541,8 @@ export default function Portfolio() {
                          </div>
                        </div>
                        <div className="italic font-serif text-[#2C3E50]/90 leading-relaxed mb-3 text-xs">
-                         <p className="mb-2">“前几天在阿那亚做《岛屿读书》宣传，多方合作，<strong className="font-bold text-[#3F57A6]">那个活动做得很成功。</strong>”</p>
-                         <p>“除了我说的话受欢迎外，最热的是哪一条你知道吗？就是今日头条的两个人，<span className="bg-yellow-200/60 font-bold px-1 not-italic text-[#3F57A6]">一个叫姗姗</span>，和唐羊设计的。让我测 MBTI，结果我是 ENFP。一直以为我是个E人……（笑）”</p>
+                         <p className="mb-2">“我前几天在三亚阿那亚的草坪上，做了一个《岛屿读书》的线下宣传。今日头条主要做，然后江苏卫视啊，还有阿那亚社区、三亚文旅都有合作，<strong className="font-bold text-[#3F57A6]">那个活动做得很成功。</strong>”</p>
+                         <p>“除了其他有些我说的话比较受欢迎之外，最热的是哪一条你知道吗？就是今日头条的两个人，<span className="bg-yellow-200/60 font-bold px-1 not-italic text-[#3F57A6]">一个叫姗姗</span>，还有一个叫唐羊，他们两个人设计的。就是要我测一下我是什么（MBTI），结果我测下来我是 ENFP。我很惊讶，因为我一直以为我是个E人……（笑）”</p>
                        </div>
                        <p className="text-[10px] text-[#3F57A6]/60 font-bold tracking-wider text-right">— 余华 现场分享</p>
                    </div>
@@ -554,9 +554,11 @@ export default function Portfolio() {
             {/* 1. 笙笙 (Left Video 9:16) */}
             <FadeIn delay={100} className="relative z-10 mb-12 md:mb-16">
               <div className="flex flex-col md:flex-row items-center relative group justify-center md:justify-start">
-                <div 
-                  className="w-full md:w-5/12 max-w-[280px] aspect-[9/16] bg-[#D9E2E8] rounded-sm shadow-xl overflow-hidden relative cursor-pointer flex-shrink-0" 
-                  onClick={() => window.open('https://www.douyin.com/video/7449319839836933439', '_blank')}
+                <a 
+                  href="https://www.douyin.com/video/7449319839836933439" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="w-full md:w-5/12 max-w-[280px] aspect-[9/16] bg-[#D9E2E8] rounded-sm shadow-xl overflow-hidden relative flex-shrink-0 block cursor-pointer group" 
                 >
                    <img src="/images/笙笙.jpeg" alt="笙笙 Vlog 封面" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                    <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors z-10"></div>
@@ -570,7 +572,7 @@ export default function Portfolio() {
                        点击前往观看原片 <ExternalLink size={10} className="inline ml-1 -mt-0.5" />
                      </span>
                    </div>
-                </div>
+                </a>
                 <div className="w-full md:w-7/12 pt-8 md:pt-0 md:-ml-8 z-20">
                   <div className="bg-[#E4EAEF]/90 md:bg-transparent p-6 md:p-0 backdrop-blur-sm md:backdrop-blur-none">
                     <p className="text-[10px] font-bold tracking-widest text-[#3F57A6]/60 mb-2 uppercase">Cross-Generation</p>
@@ -584,9 +586,11 @@ export default function Portfolio() {
             {/* 2. 张大碗子 (Right Video 9:16) */}
             <FadeIn delay={200} className="relative z-20 mb-12 md:mb-16">
               <div className="flex flex-col md:flex-row-reverse items-center relative group mt-16 md:-mt-8 justify-center md:justify-start">
-                <div 
-                  className="w-full md:w-5/12 max-w-[280px] aspect-[9/16] bg-[#C5D3DD] rounded-sm shadow-xl overflow-hidden relative cursor-pointer flex-shrink-0" 
-                  onClick={() => window.open('https://www.douyin.com/video/7448946888084163859', '_blank')}
+                <a 
+                  href="https://www.douyin.com/video/7448946888084163859" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="w-full md:w-5/12 max-w-[280px] aspect-[9/16] bg-[#C5D3DD] rounded-sm shadow-xl overflow-hidden relative flex-shrink-0 block cursor-pointer group" 
                 >
                    <img src="/images/碗子.jpeg" alt="张大碗子 Vlog 封面" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                    <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors z-10"></div>
@@ -600,7 +604,7 @@ export default function Portfolio() {
                        点击前往观看原片 <ExternalLink size={10} className="inline ml-1 -mt-0.5" />
                      </span>
                    </div>
-                </div>
+                </a>
                 <div className="w-full md:w-7/12 pt-8 md:pt-0 md:-mr-8 z-30 text-left md:text-right flex flex-col items-start md:items-end">
                   <div className="bg-[#E4EAEF]/90 md:bg-transparent p-6 md:p-0 backdrop-blur-sm md:backdrop-blur-none">
                     <p className="text-[10px] font-bold tracking-widest text-[#3F57A6]/60 mb-2 uppercase">Youth Engagement</p>
@@ -621,9 +625,14 @@ export default function Portfolio() {
                   <div className="mt-auto">
                     <div className="flex items-center justify-between mb-3"><span className="text-xs font-bold text-[#2C3E50]">Vol.102 现场对话</span></div>
                     <div className="flex justify-center gap-6 items-center text-[#3F57A6]">
-                      <div className="w-12 h-12 rounded-full bg-[#3F57A6] text-white flex items-center justify-center shadow-lg hover:scale-105 transition-transform cursor-pointer" onClick={() => window.open('https://www.xiaoyuzhoufm.com/episode/67590f79d461a2cd6bb407f8', '_blank')}>
+                      <a 
+                        href="https://www.xiaoyuzhoufm.com/episode/67590f79d461a2cd6bb407f8" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="w-12 h-12 rounded-full bg-[#3F57A6] text-white flex items-center justify-center shadow-lg hover:scale-105 transition-transform cursor-pointer"
+                      >
                         <Play size={18} fill="currentColor" className="ml-1" />
-                      </div>
+                      </a>
                     </div>
                   </div>
                 </div>
@@ -884,10 +893,15 @@ export default function Portfolio() {
                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent pointer-events-none"></div>
                                <div className="absolute bottom-6 left-6 z-20"><span className="bg-white/95 text-slate-800 text-[10px] font-bold px-4 py-2 rounded-sm tracking-widest shadow-lg uppercase">{item.tag}</span></div>
                                {offset === 0 && (
-                                 <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-30 flex flex-col items-center justify-center backdrop-blur-sm" onClick={(e) => { e.stopPropagation(); window.open(item.link, '_blank'); }}>
+                                 <a 
+                                   href={item.link} 
+                                   target="_blank" 
+                                   rel="noopener noreferrer"
+                                   className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-30 flex flex-col items-center justify-center backdrop-blur-sm"
+                                 >
                                    <div className="w-14 h-14 rounded-full bg-white text-slate-900 flex items-center justify-center mb-4 transform scale-75 group-hover:scale-100 transition-transform duration-500 shadow-xl"><ExternalLink size={20} className="-mr-0.5" /></div>
                                    <span className="text-white text-[11px] font-bold tracking-widest uppercase border-b border-white/40 pb-1">前往抖音观看正片</span>
-                                 </div>
+                                 </a>
                                )}
                             </div>
                          </div>
@@ -895,6 +909,37 @@ export default function Portfolio() {
                     })}
                  </div>
                  <div className="absolute -bottom-10 left-1/2 md:left-auto md:right-32 -translate-x-1/2 md:translate-x-0 flex items-center gap-2 text-slate-400 text-[10px] tracking-widest font-bold uppercase mt-8 md:mt-0"><PlayCircle size={14} /> 点击后方海报进行切换</div>
+              </div>
+            </div>
+          </FadeIn>
+
+          {/* ==========================================
+              展示模块三：《头头是道》 (遵循您的要求，保留原版不动)
+          ========================================== */}
+          <FadeIn delay={300}>
+            <div className="w-full bg-[#EAE5DB]/40 border border-[#3F57A6]/10 p-8 md:p-12 rounded-sm mt-32 flex flex-col md:flex-row gap-12 md:gap-16 items-start overflow-hidden">
+              <div className="w-full md:w-2/3 z-20 flex flex-col justify-start">
+                <div className="flex items-center gap-4 mb-5">
+                  <div className="flex items-center bg-white/60 border border-[#3F57A6]/20 rounded-full pl-1 pr-4 py-1 shadow-sm">
+                     <div className="w-6 h-6 rounded-full bg-[#3F57A6] text-[#F4F1EA] flex items-center justify-center mr-2 shadow-md"><span className="text-[10px] font-serif italic pr-0.5">III</span></div>
+                     <span className="text-[11px] tracking-[0.2em] text-[#3F57A6] font-bold">社会财经</span>
+                  </div>
+                  <div className="w-8 h-px bg-[#3F57A6]/20"></div>
+                  <span className="text-[10px] tracking-[0.25em] text-[#3F57A6]/60 font-serif uppercase font-bold">Social & Finance</span>
+                </div>
+                <h4 className="text-4xl md:text-5xl font-serif text-[#3F57A6] mb-6 tracking-tight">《头头是道》</h4>
+                <p className="text-sm md:text-base text-[#2C3E50]/80 leading-relaxed max-w-md mb-10">聚焦国计民生领域热点话题，邀请领域内权威专家、学者，输出专业、深度的精品内容。</p>
+                <div className="flex flex-wrap justify-center md:justify-start content-start gap-x-4 gap-y-6 pt-8 border-t border-[#3F57A6]/10 max-w-xl">
+                  {BUBBLE_KEYWORDS.map((tag, i) => (
+                    <span key={i} className={`px-5 py-2.5 rounded-full border border-[#3F57A6]/15 bg-white/90 text-[11.5px] text-[#3F57A6]/90 shadow-sm tracking-widest font-medium cursor-default animate-float ${tag.offset} ${tag.margin}`} style={{ animationDelay: `${i * 0.3}s` }}>{tag.text}</span>
+                  ))}
+                </div>
+              </div>
+
+              <div className="w-full md:w-1/3 flex flex-row md:flex-col justify-start items-center md:items-end gap-3 md:gap-4 mt-8 md:mt-0">
+                <ZoomableImage src="/images/年终群像.png" className="w-[30%] md:w-full max-w-[110px] md:max-w-[130px] aspect-[4/5] rounded-xl shadow-md transition-transform duration-500 hover:scale-[1.02]" textFallback="养老议题" bg="bg-[#D9E2E8]" />
+                <ZoomableImage className="w-[30%] md:w-full max-w-[110px] md:max-w-[130px] aspect-[4/5] rounded-xl shadow-md transition-transform duration-500 hover:scale-[1.02]" textFallback="新能源" bg="bg-[#C5D3DD]" />
+                <ZoomableImage className="w-[30%] md:w-full max-w-[110px] md:max-w-[130px] aspect-[4/5] rounded-xl shadow-md transition-transform duration-500 hover:scale-[1.02]" textFallback="医疗保险" bg="bg-[#D9E2E8]" />
               </div>
             </div>
           </FadeIn>
@@ -1115,23 +1160,30 @@ export default function Portfolio() {
           <FadeIn delay={200}>
             <div className="mb-24">
                <div className="flex items-center gap-3 mb-8"><span className="text-[#A73C33] text-[10px] tracking-[0.2em] font-bold uppercase border-b border-[#A73C33]/30 pb-1">02 / 行业大事件</span></div>
+               
+               {/* 手机端横向滑动，电脑端保持4列网格 */}
                <div className="flex md:grid overflow-x-auto md:overflow-visible snap-x snap-mandatory scrollbar-hide gap-4 md:gap-6 md:grid-cols-4 h-auto pb-6 md:pb-0 -mx-6 px-6 md:mx-0 md:px-0">
+                 
                  <div className="shrink-0 w-[75vw] sm:w-[50vw] md:w-auto snap-center bg-[#A73C33] rounded-3xl p-6 flex flex-col justify-between overflow-hidden relative group shadow-sm">
                     <div className="relative z-10 mb-6"><h4 className="text-[#F4F1EA] text-xl font-serif mb-1">FIRST 电影节</h4><p className="text-[#F4F1EA]/80 text-[11px] tracking-wider">合作超短片计划</p></div>
                     <div className="w-full aspect-[9/16] bg-black/20 rounded-2xl overflow-hidden shadow-inner transform group-hover:scale-105 transition-transform duration-500"><ZoomableImage src="/images/first.jpeg" textFallback="FIRST现场" className="w-full h-full opacity-90 mix-blend-overlay" /></div>
                  </div>
+                 
                  <div className="shrink-0 w-[75vw] sm:w-[50vw] md:w-auto snap-center bg-[#FFFDF8] rounded-3xl p-6 flex flex-col justify-between overflow-hidden relative group border border-[#A73C33]/15 shadow-sm">
                     <div className="relative z-10 mb-6"><h4 className="text-[#A73C33] text-xl font-serif mb-1">金鸡电影节</h4><p className="text-slate-600 text-[11px] tracking-wider">开、闭幕式植入宣传片</p></div>
                     <div className="w-full aspect-[9/16] bg-[#F4F1EA] rounded-2xl overflow-hidden shadow-inner transform group-hover:scale-105 transition-transform duration-500"><ZoomableImage src="/images/金鸡.jpg" textFallback="金鸡宣传片" className="w-full h-full mix-blend-multiply opacity-80" /></div>
                  </div>
+                 
                  <div className="shrink-0 w-[75vw] sm:w-[50vw] md:w-auto snap-center bg-[#A73C33] rounded-3xl p-6 flex flex-col justify-between overflow-hidden relative group shadow-sm">
                     <div className="relative z-10 mb-6"><h4 className="text-[#F4F1EA] text-xl font-serif mb-1">海南岛电影节</h4><p className="text-[#F4F1EA]/80 text-[11px] tracking-wider">官方影评团合作</p></div>
                     <div className="w-full aspect-[9/16] bg-black/20 rounded-2xl overflow-hidden shadow-inner transform group-hover:scale-105 transition-transform duration-500"><ZoomableImage src="/images/海南电影节.jpg" textFallback="海南影评团" className="w-full h-full opacity-90 mix-blend-overlay" /></div>
                  </div>
+                 
                  <div className="shrink-0 w-[75vw] sm:w-[50vw] md:w-auto snap-center bg-[#FFFDF8] rounded-3xl p-6 flex flex-col justify-between overflow-hidden relative group border border-[#A73C33]/15 shadow-sm">
                     <div className="relative z-10 mb-6"><h4 className="text-[#A73C33] text-xl font-serif mb-1">上海电影节</h4><p className="text-slate-600 text-[11px] tracking-wider">平台作者参与官方刊物</p></div>
                     <div className="w-full aspect-[9/16] bg-[#F4F1EA] rounded-2xl overflow-hidden shadow-inner transform group-hover:scale-105 transition-transform duration-500"><ZoomableImage src="/images/上影节.jpg" textFallback="上影节刊物" className="w-full h-full mix-blend-multiply opacity-80" /></div>
                  </div>
+                 
                </div>
             </div>
           </FadeIn>
