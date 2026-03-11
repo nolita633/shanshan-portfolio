@@ -520,7 +520,7 @@ export default function Portfolio() {
                 ].map((img, i) => (
                   <div 
                     key={i} 
-                    className="shrink-0 w-[65vw] md:w-[40vw] lg:w-[30vw] aspect-[4/3] rounded-sm overflow-hidden shadow-md bg-[#D9E2E8] cursor-pointer group"
+                    className="shrink-0 w-[85vw] md:w-[40vw] lg:w-[30vw] aspect-[4/3] rounded-sm overflow-hidden shadow-md bg-[#D9E2E8] cursor-pointer group"
                     onClick={() => setLightboxData({ src: img, text: "阿那亚现场" })}
                   >
                     <img src={img} alt="阿那亚现场" className="w-full h-full object-cover" />
