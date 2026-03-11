@@ -487,7 +487,7 @@ export default function Portfolio() {
                   <span className="text-4xl md:text-4xl lg:text-6xl not-italic font-bold mt-2 lg:mt-4 block">第三季</span>
                 </h2>
                 <p className="text-[#2C3E50]/90 text-sm md:text-base lg:text-lg leading-loose max-w-lg mb-8 lg:mb-12 font-medium">
-                  全案操盘《我在岛屿读书3》，从线下实体售票到全渠道霸榜，用营销的锐度打破内容次元壁，将小众的严肃文化，打造为百亿曝光的全网爆款。
+                  全案操盘《我在岛屿读书3》，从内容构建、商业化运营到创意传播，用营销的锐度打破内容次元壁，将小众的严肃文化，打造为百亿曝光的全网爆款。
                 </p>
                 
                 <div className="flex flex-wrap gap-8 lg:gap-16 pt-8 lg:pt-10 border-t border-[#3F57A6]/10">
@@ -550,7 +550,7 @@ export default function Portfolio() {
                   <div className="absolute -bottom-2 left-0 w-1/2 h-1 bg-[#3F57A6]/20"></div>
                 </h3>
                 <p className="text-sm md:text-base text-[#2C3E50]/80 font-medium leading-relaxed max-w-lg mt-6">
-                  不仅仅是一场线下活动——创意营销突破常规，以线下事件为支点，延展出跨界联动、实体出版、深度互动等极具厚度的内容生态网。
+                  不仅仅是一场线下活动——创意营销突破常规，以线下事件为支点，延展出跨界联动、实体出版、深度互动等极具厚度的内容引爆点。
                 </p>
               </FadeIn>
               
